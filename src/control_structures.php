@@ -5,20 +5,20 @@ declare(strict_types=1);
 
 function checkNumber(int|float $num): string {
     if ($num > 0) {
-        return "Положительное<br>";
+        return "Положительное";
     } elseif ($num < 0) {
-        return "Отрицательное<br>";
+        return "Отрицательное";
     } else {
-        return "Ноль<br>";
+        return "Ноль";
     }
 }
 
 function getAgeCategory(int $age): string {
     return match (true) {
-        $age >= 0 && $age <= 12 => "Ребенок<br>",
-        $age >= 13 && $age <= 17 => "Подросток<br>",
-        $age >= 18 && $age <= 64 => "Взрослый<br>",
-        $age >= 65 => "Пожилой<br>",
+        $age >= 0 && $age <= 12 => "Ребенок",
+        $age >= 13 && $age <= 17 => "Подросток",
+        $age >= 18 && $age <= 64 => "Взрослый",
+        $age >= 65 => "Пожилой",
         default => throw new InvalidArgumentException("Invalid age value"),
     };
 }
