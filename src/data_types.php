@@ -3,8 +3,8 @@
 
 declare(strict_types=1);
 
-function multiply(int|float $a, int|float $b): string {
-	return (string)$a*$b . "<br>";
+function multiply(int|float $a, int|float $b): float {
+	return $a*$b;
 }
 
 function isAdult(int $age): bool {
@@ -14,8 +14,8 @@ function isAdult(int $age): bool {
 	};
 }
 
-function calculateTax(float $price, float $tax): string {
-    return (string)sprintf("%.2f",round($price + ($price * $tax), 2)) . "<br>";
+function calculateTax(float $price, float $tax): float {
+    return sprintf("%.2f",round($price + ($price * $tax), 2));
 }
 
 function getNamesLength(array $names): array {
@@ -23,5 +23,5 @@ function getNamesLength(array $names): array {
 }
 
 function formatValue(int|float|string $a): string {
-	return (string)$a . '<br>';
+	return (string)$a;
 }
