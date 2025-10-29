@@ -3,15 +3,15 @@
 
 function getStatusMessage(string $str): string {
     return match ($str) {
-		'success' => "Операция выполнена успешно<br>",
-		'error' => 'Произошла ошибка<br>',
-		'pending' => 'Операция в ожидании<br>',
-		default => 'Неизвестный статус<br>'
+		'success' => "Операция выполнена успешно",
+		'error' => 'Произошла ошибка',
+		'pending' => 'Операция в ожидании',
+		default => 'Неизвестный статус'
 	};
 }
 
-function calculatePrice(int|float $basePrice, int $discount, int $tax): string {
-    return (string)($basePrice * (1 - $discount / 100) * (1 + $tax / 100)) . "<br>";
+function calculatePrice(int|float $basePrice, int $discount, int $tax): float {
+    return $basePrice * (1 - $discount / 100) * (1 + $tax / 100);
 }
 
 class User {
@@ -23,7 +23,7 @@ class User {
 }
 
 function getDeliveryMessage(OrderStatus $status): string {
-    return $status->value . '<br>';
+    return $status->value;
 }
 
 enum OrderStatus: string {
@@ -33,5 +33,5 @@ enum OrderStatus: string {
 }
 
 function getUserEmail(object $user): string {
-    return (string)($user?->profile?->email ?? 'Email не найден') . '<br>';
+    return $user?->profile?->email ?? 'Email не найден';
 }
