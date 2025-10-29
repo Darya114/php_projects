@@ -2,21 +2,36 @@
 // src/modern_php_features.php
 
 function getStatusMessage(string $str): string {
-    return '';
+    return match ($str) {
+		'success' => "Операция выполнена успешно<br>",
+		'error' => 'Произошла ошибка<br>',
+		'pending' => 'Операция в ожидании<br>',
+		default => 'Неизвестный статус<br>'
+	};
 }
 
 function calculatePrice(int|float $basePrice, int $discount, int $tax): string {
-    return '';
+    return (string)($basePrice * (1 - $discount / 100) * (1 + $tax / 100)) . "<br>";
 }
 
-class User {}
+class User {
+    public function __construct(
+        public readonly int $id,
+        public readonly string $name,
+        public readonly string $email
+    ) {}
+}
 
 function getDeliveryMessage(OrderStatus $status): string {
-    return '';
+    return $status->value . '<br>';
 }
 
-enum OrderStatus: string {}
+enum OrderStatus: string {
+    case Pending = 'Заказ в ожидании';
+    case Shipped = 'Заказ отправлен';
+	case Delivered = 'Заказ доставлен';
+}
 
 function getUserEmail(object $user): string {
-    return '';
+    return (string)($user?->profile?->email ?? 'Email не найден') . '<br>';
 }
