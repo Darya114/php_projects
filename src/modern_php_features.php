@@ -5,7 +5,7 @@ function getStatusMessage(string $str): string {
     return '';
 }
 
-function calculatePrice(fint|float $basePrice, int $discount, int $tax): string {
+function calculatePrice(int|float $basePrice, int $discount, int $tax): string {
     return '';
 }
 
