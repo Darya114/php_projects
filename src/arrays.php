@@ -3,16 +3,18 @@
 
 declare(strict_types=1);
 
+require_once '../helpers/math_helpers.php';
+
 function filterEvenNumbers(array $numbers): array {
 	return array_values(array_filter(
 		$numbers,
-		fn($num) => is_int($num) ? $num % 2 === 0 : throw new TypeError("All elements must be numbers")
+		fn($num) => assertInt($num) % 2 === 0
 	));
 }
 
 function squareNumbers(array $numbers): array {
 	return array_map(
-		fn($num) => is_int($num) ? $num ** 2 : throw new TypeError("All elements must be numbers"),
+		fn($num) => assertInt($num) ** 2,
 		$numbers
 	);
 }
