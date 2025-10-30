@@ -1,6 +1,8 @@
 <?php
 // src/modern_php_features.php
 
+require_once '../helpers/math_helpers.php';
+
 function getStatusMessage(string $str): string {
     return match ($str) {
 		'success' => "Операция выполнена успешно",
@@ -11,7 +13,7 @@ function getStatusMessage(string $str): string {
 }
 
 function calculatePrice(int|float $basePrice, int $discount, int $tax): float {
-    return $basePrice * (1 - $discount / 100) * (1 + $tax / 100);
+    return applyDiscount(addTax($basePrice, $tax), $discount);
 }
 
 class User {
