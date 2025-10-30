@@ -3,6 +3,8 @@
 
 declare(strict_types=1);
 
+require_once '../helpers/general_helpers.php';
+
 function checkNumber(int|float $num): string {
     if ($num > 0) {
         return "Положительное";
@@ -25,7 +27,7 @@ function getAgeCategory(int $age): string {
 
 function printNumbers(int $n): void {
     for ($i = 1; $i <= $n; $i++) {
-        echo $i . "<br>";
+        printLine($i);
     }
 }
 
@@ -47,7 +49,7 @@ function factorial(int $n): int {
 
 function printArrayItems(array $items): void {
     foreach ($items as $item) {
-        echo $item . "<br>";
+        printLine($item);
     }
 }
 
@@ -58,7 +60,7 @@ function printEvenNumbers(int $n): void {
             $i++;
             continue;
         }
-        echo $i . "<br>";
+        printLine($i);
         $i++;
     }
 }
