@@ -3,23 +3,27 @@
 
 declare(strict_types=1);
 
+require_once '../helpers/math_helpers.php';
+
 function multiply(int|float $a, int|float $b): float {
 	return $a*$b;
 }
 
 function isAdult(int $age): bool {
-	return match (true) {
-		$age>=18 => true,
-		default => false
-	};
+	return $age >= 18;
 }
 
 function calculateTax(float $price, float $tax): float {
-    return sprintf("%.2f",round($price + ($price * $tax), 2));
+    return addTax($price, $tax);
 }
 
 function getNamesLength(array $names): array {
-	return array_map(fn($name) => is_string($name) ? strlen($name) : throw new TypeError("All elements must be strings"), $names);
+	return array_map(function($name) {
+        if (!is_string($name)) {
+            throw new TypeError("All elements must be strings");
+        }
+        return strlen($name);
+    }, $names);
 }
 
 function formatValue(int|float|string $a): string {
