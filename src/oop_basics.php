@@ -17,7 +17,7 @@ class Car implements Movable{
 	public function __construct(
 		private string $brand,
 		private string $model,
-		protected int $year
+		private int $year
 	) {}
 	
 	public function getCarInfo(): string{
