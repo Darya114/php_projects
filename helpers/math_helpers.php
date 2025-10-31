@@ -11,7 +11,7 @@ function applyDiscount(float $price, int $discount): float {
 }
 
 function formatPrice(float $price, int $decimals = 2): string {
-    return sprintf("%.2f", $price, $decimals);
+    return sprintf("%.*f", $decimals, $price);
 }
 
 function assertInt($value): int {
