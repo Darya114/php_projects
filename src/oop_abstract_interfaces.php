@@ -32,7 +32,7 @@ class Rectangle extends Shape implements Drawable{
 
 class Circle extends Shape implements Drawable{
     public function __construct(
-        private int $radius
+        private float $radius
     ) {}
 
     public function getArea(): float {
