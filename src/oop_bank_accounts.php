@@ -64,8 +64,13 @@ class CreditAccount extends BankAccount {
 	// }
 
 	public function pay(int $amount): void {
+		if ($this->getBalance() >= $amount) {
+			parent::pay($amount);
+			return;
+		}
+
 		$this->withdraw($amount);
-		$this->getBalance()<0 ? printLine("Баланс ушел в {$this->getBalance()} (кредитный лимит)"):parent::pay($amount);
+		printLine("Баланс ушел в {$this->getBalance()} (кредитный лимит)");
 	}
 }
 
