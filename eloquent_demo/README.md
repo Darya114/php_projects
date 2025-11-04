@@ -1,59 +1,73 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Laravel User & Post Management
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Проект на **Laravel**, демонстрирующий базовую архитектуру веб-приложения с использованием ORM **Eloquent**.    
+Он реализует управление пользователями и постами, а также взаимодействие между ними.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Описание
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Цель проекта — создать модели, миграции, фабрики и сидеры, а также поработать с MySQL через Laravel.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Приложение включает две основные сущности:
 
-## Learning Laravel
+- **User** — модель пользователя с полями `name`, `email`, `password` и `role`.  
+- **Post** — модель поста, связанная с пользователем.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+Функционал:
+- создание и хранение пользователей;
+- создание постов и привязка их к авторам;
+- управление структурой базы данных через миграции;
+- наполнение тестовыми данными через сидеры и фабрики.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Структура проекта
 
-## Laravel Sponsors
+eloquent_demo/  
+├── app/  
+│   ├── Models/  
+│   │   ├── User.php          # Модель пользователя  
+│   │__ └── Post.php          # Модель поста  
+│  
+├── database/  
+│   ├── migrations/           # Миграции таблиц users и posts  
+│   ├── seeders/              # Сидеры для тестовых данных  
+│   └── factories/            # Фабрики моделей  
+│  
+├── config/                   # Конфигурационные файлы  
+├── .env.example              # Пример конфигурации окружения  
+├── tasks.sql                 # Дамп MySQL для быстрой настройки  
+└── composer.json             # PHP-зависимости  
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Предварительные настройки проекта
 
-### Premium Partners
+1. Установка зависимостей  
+Выполните: composer install
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+2. Создание файла окружения  
+Выполните: cp .env.example .env  
 
-## Contributing
+3. Генерация ключа приложения   
+Выполните: php artisan key:generate  
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Настройка подключения к MySQL
 
-## Code of Conduct
+1. В файле .env укажите свои параметры:  
+DB_CONNECTION=mysql  
+DB_HOST=127.0.0.1  
+DB_PORT=3306  
+DB_DATABASE=tasks  
+DB_USERNAME=dasha  
+DB_PASSWORD=1234  
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+2. Продублируйте параметры в config/database.php  
 
-## Security Vulnerabilities
+3. Импортируйте дамп базы данных  
+Выполните: mysql -u user -p -P 3306 -h localhost < tasks.sql  
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Работа с базой данных
 
-## License
+1. Применить миграции  
+Выполните: php artisan migrate  
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+2. Засеять тестовыми данными  
+Выполните: php artisan db:seed  
