@@ -48,7 +48,11 @@ db_name = app_db
 db_user = root  
 db_pass = 
 
-2. Выполните composer dump-autoload
+2. Импортируйте дамп базы данных  
+Выполните: mysql -u user -p -P 3306 -h localhost < tasks.sql  
+
+3. Запустите автозагрузку  
+Выполните: composer dump-autoload  
 
 3. Запустите сервер и откройте в браузере файл index.php  
 Пример:  
