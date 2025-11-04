@@ -4,21 +4,21 @@ require_once '../helpers/math_helpers.php';
 require_once '../helpers/general_helpers.php';
 
 interface Payable {
-    public function pay(int $amount): void;
+    public function pay(float $amount): void;
 }
 
 class BankAccount implements Payable {
 	protected bool $allowOverdraft = false;
 
 	public function __construct(
-		private int $balance
+		private float $balance
 	) {}
 	
-	public function deposit(int $amount): void{
+	public function deposit(float $amount): void{
 		$this->balance+= $amount;
 	}
 
-	public function withdraw(int $amount): void{
+	public function withdraw(float $amount): void{
 		if (!$this->allowOverdraft && $amount > $this->balance) {
             echo "Ошибка: недостаточно средств";
             return;
@@ -27,15 +27,15 @@ class BankAccount implements Payable {
 		$this->balance -= $amount;
 	}
 
-	public function getBalance(): int{
+	public function getBalance(): float{
 		return $this->balance;
 	}
 
-	protected function setBalance(int $amount): void {
+	protected function setBalance(float $amount): void {
 		$this->balance = $amount;
 	}
 
-	public function pay(int $amount): void {
+	public function pay(float $amount): void {
 		$this->withdraw($amount);
 		printLine("Баланс уменьшился на {$amount}");
 	}
@@ -43,7 +43,7 @@ class BankAccount implements Payable {
 
 class SavingsAccount extends BankAccount {
 	public function __construct(
-		int $balance,
+		float $balance,
 		private int $interest
 	) {parent::__construct($balance);}
 
@@ -56,14 +56,14 @@ class CreditAccount extends BankAccount {
 	protected bool $allowOverdraft = true;
 
 	public function __construct(
-		int $balance
+		float $balance
 	) {parent::__construct($balance);}
 	
 	// public function withdraw(int $amount): void{
 	// 	$this->setBalance($this->getBalance()-$amount);
 	// }
 
-	public function pay(int $amount): void {
+	public function pay(float $amount): void {
 		if ($this->getBalance() >= $amount) {
 			parent::pay($amount);
 			return;
