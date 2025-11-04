@@ -1,0 +1,25 @@
+{
+    "name": "daryavasilchuk/doctrine_demo",
+    "description": "Проект с Doctrine",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Darya",
+            "email": "vasilchuk_darya_82@mail.ru"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "doctrine/orm": "^3.5",
+        "symfony/cache": "^7",
+        "doctrine/migrations": "^3.5"
+    },
+    "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^4.2"
+    }
+}

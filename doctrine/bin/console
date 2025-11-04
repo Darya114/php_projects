@@ -1,0 +1,49 @@
+#!/usr/bin/env php
+<?php
+use Doctrine\ORM\Tools\Console\ConsoleRunner;
+use Doctrine\ORM\Tools\Console\EntityManagerProvider\SingleManagerProvider;
+use Doctrine\Migrations\Configuration\EntityManager\ExistingEntityManager;
+use Doctrine\Migrations\Tools\Console\Command as MigrationsCommand;
+use Doctrine\Migrations\DependencyFactory;
+
+use Doctrine\Migrations\Configuration\Migration\PhpFile;
+use Symfony\Component\Console\Application;
+
+
+require __DIR__ . '/../bootstrap.php';
+
+$app = new Application('Doctrine Console');
+ConsoleRunner::addCommands($app, new SingleManagerProvider($entityManager));
+
+
+
+$config = new PhpFile(__DIR__ . '/../migrations.php');
+$dependencyFactory = DependencyFactory::fromEntityManager(
+    $config,
+    new ExistingEntityManager($entityManager)
+);
+$app->addCommands([
+    new MigrationsCommand\DiffCommand($dependencyFactory)->setName('doctrine:migrations:diff'),
+    new MigrationsCommand\GenerateCommand($dependencyFactory)->setName('doctrine:migrations:generate'),
+    new MigrationsCommand\MigrateCommand($dependencyFactory)->setName('doctrine:migrations:migrate'),
+    new MigrationsCommand\StatusCommand($dependencyFactory)->setName('doctrine:migrations:status'),
+    new MigrationsCommand\ExecuteCommand($dependencyFactory)->setName('doctrine:migrations:execute'),
+]);
+
+
+
+$app->register('doctrine:fixtures:load')
+    ->setDescription('Load sample fixtures')
+    ->setCode(function () use ($entityManager) {
+        $fixturesPath = __DIR__ . '/../src/DataFixtures';
+        foreach (glob($fixturesPath . '/*.php') as $file) {
+            require_once $file;
+            $className = 'App\\DataFixtures\\' . basename($file, '.php');
+            if (class_exists($className)) {
+                $fixture = new $className();
+                $fixture->load($entityManager);
+            }
+        }
+    });
+
+$app->run();
