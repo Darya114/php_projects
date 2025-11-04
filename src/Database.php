@@ -17,9 +17,9 @@ class Database implements DatabaseConnectionInterface // почти абстра
 
     // private function __construct(){$this->loadConfig();}
 
-    public function __construct(?DbConfig $dbConfig = null, ?UserValidatorInterface $validator = null, ?UserRepository $userRepository = null){
-        $this->validator = new UserValidator();
-        $this->userRepository = new UserRepository($this, new UserValidator());
+    public function __construct(?DbConfig $dbConfig = null, ?UserValidator $validator = null, ?UserRepository $userRepository = null){
+        $this->validator = $validator ?? new UserValidator();
+        $this->userRepository = $userRepository ?? new UserRepository($this, new UserValidator());
         $dbConfig ??= new DbConfig(__DIR__ . '/../config/config.ini');
         $this->config = $dbConfig->getConfig($this->getDriverName());
     }
