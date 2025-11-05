@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App;
 
 use PDO;
+use App\Interfaces\DatabaseConnectionInterface;
 
 // Sigleton
 class Database implements DatabaseConnectionInterface // почти абстрактный для других бд
