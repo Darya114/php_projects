@@ -3,10 +3,10 @@
 namespace App\DataFixtures;
 
 use App\Entity\User;
-use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Persistence\ObjectManager;
 
-class UserFixtures extends Fixture {
+class UserFixtures extends AbstractFixture {
     public function load(ObjectManager $manager): void {
         $user1 = new User();
         $user1->setName('Иван');
