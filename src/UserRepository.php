@@ -22,7 +22,7 @@ final class UserRepository {
 
     public function getUsers(): array {
         return $this->execute(function () {
-            $stmt = $this->db->connect()->query("SELECT id, name, email, password FROM users");
+            $stmt = $this->db->connect()->query("SELECT id, name, email FROM users");
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }, "Ошибка получения пользователей");
     }
@@ -31,7 +31,7 @@ final class UserRepository {
         $this->validator->validateEmail($email);
 
         return $this->execute(function () use ($email, $allowEmpty) {
-            $stmt = $this->db->connect()->prepare("SELECT id, name, email, password FROM users WHERE email = :email");
+            $stmt = $this->db->connect()->prepare("SELECT id, name, email FROM users WHERE email = :email");
             $stmt->execute(['email' => $email]);
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
