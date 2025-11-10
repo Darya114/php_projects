@@ -1,0 +1,31 @@
+name: PHPUnit Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout репозитория
+        uses: actions/checkout@v4
+
+      - name: Установка PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.3"
+          extensions: mbstring, pdo, pdo_mysql
+          coverage: none
+
+      - name: Установка зависимостей
+        run: composer install --no-progress --no-suggest
+
+      - name: Запуск тестов
+        run: vendor/bin/phpunit
